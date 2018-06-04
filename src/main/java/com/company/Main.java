@@ -11,12 +11,18 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        String[] letters = {"a", "b", "c", "d", "e", "f", "g"};
-
         ObservableClass observableClass = new ObservableClass();
-        observableClass.observable = Observable.from(letters);
-        Subscription subscribe = observableClass.observable.subscribe(s -> observableClass.result += s);
-        System.out.println(observableClass.result.equals("abcdefg"));
+
+        String[] letters = {"a", "b", "c", "d", "e", "f", "g"};
+        Observable.from(letters)
+                .map(String::toUpperCase)
+                .subscribe(s ->  observableClass.result += s);
+//        observableClass.observable.map(String::toUpperCase);
+//        Subscription subscribe = observableClass.observable.subscribe(
+//                s ->  observableClass.result += s,
+//                Throwable::printStackTrace,
+//                () -> observableClass.result += "_Completed");
+        System.out.println(observableClass.result.equals("abcdefg_Completed"));
         System.out.println(observableClass.result);
 
     }
